@@ -1,0 +1,59 @@
+<div class="board-container" *ngIf="battleState$ | async as state">
+
+  <div class="board-cards">
+    <app-game-card
+      [class.winner]="player === state.winner"
+      *ngFor="let player of state.players"
+      [player]="player">
+    </app-game-card>
+  </div>
+
+  <div class="board-actions">
+    <button
+      [disabled]="state.winner"
+      class="action-button"
+      (click)="doPlayerAttributes()">
+      Wyznacz atrybuty graczy
+    </button>
+
+    <button
+      [disabled]="state.winner"
+      class="action-button"
+      (click)="doVehicleAttributes()">
+      Wyznacz atrybuty statków
+    </button>
+
+    <button
+      [disabled]="state.winner || !(canResolveBattle$ | async)"
+      class="action-button"
+      (click)="resolveBattle()"
+    >
+      Wyznacz zwycięzcę
+    </button>
+
+    <button *ngIf="state.winner"
+      class="action-button"
+      (click)="resetBattle()">
+        Zresetuj bitwę
+    </button>
+
+    <button
+      class="action-button"
+      (click)="downloadHistory()">
+      Pobierz Historię
+    </button>
+
+    <button
+      class="action-button"
+      (click)="clearHistory()">
+      Wyczyść Historię
+    </button>
+  </div>
+</div>
+
+<div class="loader"
+  *ngIf="isLoading$ | async">
+  <div class="loader-content">
+    <div class="loader-text">Ładowanie...</div>
+  </div>
+</div>
