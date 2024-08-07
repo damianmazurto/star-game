@@ -119,7 +119,7 @@ export class BattleService {
       });
       return () => subscription.unsubscribe();
     }).pipe(
-      retry({count: 5, delay: 500}),
+      retry({count: 10, delay: 500}),
       catchError(error => {
         console.error(error);
         return of(player);
