@@ -1,6 +1,6 @@
 .board-container {
   max-width: 1200px;
-  margin: 0 auto;
+  margin: 20px auto;
 }
 
 .board-cards {
@@ -11,9 +11,18 @@
 
 .board-actions {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  flex-wrap: wrap;
   max-width: 600px;
   margin: 20px auto;
+
+  .action-button {
+    margin-right: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    background: yellow;
+    padding: 20px;
+  }
 }
 
 .loader {
