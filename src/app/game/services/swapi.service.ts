@@ -1,29 +1,9 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, catchError, map, throwError } from "rxjs";
+import { Swapi } from "../models/swapi.model";
 
 const api = `https://www.swapi.tech/api`;
-
-interface SwapiResponse {
-  message: string;
-  result: {
-    description: string;
-    properties: SwapiCharacter | SwapiVehicle;
-    uid: string;
-  };
-}
-
-interface SwapiCharacter {
-  name: string;
-  height: string;
-  mass: string;
-}
-
-interface SwapiVehicle {
-  name: string;
-  model: string;
-  crew: string;
-}
 
 @Injectable()
 export class SwapiService {
@@ -36,9 +16,9 @@ export class SwapiService {
 
   }
 
-  fetchCharacterById(id: string): Observable<SwapiCharacter> {
-    return this.http.get<SwapiResponse>(`${api}/people/${id}`).pipe(
-      map((response) => response.result.properties as SwapiCharacter),
+  fetchCharacterById(id: string): Observable<Swapi.Character> {
+    return this.http.get<Swapi.Response>(`${api}/people/${id}`).pipe(
+      map((response) => response.result.properties as Swapi.Character),
       catchError((error) => {
         console.error(error);
         return throwError(() => new Error('An error occurred fetching character'));
@@ -46,9 +26,9 @@ export class SwapiService {
     );
   }
 
-  fetchVehicleById(id: string): Observable<SwapiVehicle> {
-    return this.http.get<SwapiResponse>(`${api}/starships/${id}`).pipe(
-      map((response) => response.result.properties as SwapiVehicle),
+  fetchVehicleById(id: string): Observable<Swapi.Starship> {
+    return this.http.get<Swapi.Response>(`${api}/starships/${id}`).pipe(
+      map((response) => response.result.properties as Swapi.Starship),
       catchError((error) => {
         console.error(error);
         return throwError(() => new Error('An error occurred fetching vehicle'));
